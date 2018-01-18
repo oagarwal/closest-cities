@@ -40,16 +40,26 @@ input[type=submit]:hover {
 <body>
 <br/><br/><br/>
 <div align="center">
-<h2>Welcome to Closest City Finder!</h2>
+<h2>Welcome</h2>
 <br/>
-<form method="get" action="/city">
-  Latitude:&nbsp;
-  <input type="text" name="latitude" value="0">
-  <br/><br/>
-  Longitude:&nbsp;
-  <input type="password" name="longitude" value="0">
+<form method="get" action="/closestcities">
+  <legend>Find closest cities:</legend><br/>
+  Geo id of the location:&nbsp;
+  <input type="text" name="geonameid" value="0"><br/>
+  How many cities?&nbsp;
+  <input type="text" name="k" value="10">
   <br/><br/>&nbsp;&nbsp;&nbsp;
-  <input type="submit" value="Submit"></form>
+  <input type="submit" value="Submit">
+</form>
+<br/><br/>
+<form method="get" action="/city">
+  <legend>Find city:</legend><br/>
+  Name:&nbsp;
+  <input type="text" name="name" value="0">
+  <br/><br/>&nbsp;&nbsp;&nbsp;
+  <input type="submit" value="Submit">
+</form>
+
 </div>
 </body>
 </html>
