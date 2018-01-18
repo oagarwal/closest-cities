@@ -4,10 +4,10 @@ from haversine import haversine
 class GeoData:
 
 	def __init__(self):
-		#self.df = pd.read_csv('data/cities1000.txt',header=None,names=['geonameid','name','asciiname','alternatenames','latitude','longitude','feature_class','feature_code','country_code','cc2','admin1_code','admin2_code','admin3_code','admin4_code','population','elevation','dem','timezone','modification_date'],sep='\t',encoding='utf-8')
-		#self.df['name_lower'] = self.df.apply(lambda row: row['name'].lower(),axis=1)
 		self.df = pd.read_csv('data/cities1000_new.txt',sep='\t',encoding='utf-8')
 		self.df.set_index(['latitude','longitude'])
+		self.df['name'] = self.df['name'].astype(unicode)
+		self.df['name_lower'] = self.df['name_lower'].astype(unicode)
 
 	def get_city_by_id(self,geonameid):
 		return self.df.loc[self.df['geonameid'] == geonameid]
@@ -20,7 +20,7 @@ class GeoData:
 	
 	def get_city_by_name(self,name):
 		name=name.lower().replace(' ','|')
-		return self.df.loc[self.df['name_lower'].str.contains(name)][['geonameid','name','country_code','latitude','longitude']]
+		return self.df.loc[self.df['name_lower'].str.contains(name)]#[['geonameid','name','country_code','latitude','longitude']]
 
 	def get_k_closest_cities(self,geonameid,k,same_country):
 		given_city = self.get_city_by_id(geonameid)
@@ -39,7 +39,7 @@ class GeoData:
 					temp_df = self.get_city_by_coordinates(latitude,longitude,offset)
 				if len(temp_df)>k:
 					break
-		
+			print(len(temp_df))	
 			for index,row in temp_df.iterrows():
 				closest_cities.append((row[['geonameid','name','country_code','latitude','longitude']],haversine((latitude,longitude),(row['latitude'],row['longitude']),miles=True)))
 
