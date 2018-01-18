@@ -39,7 +39,7 @@ class GeoData:
 					temp_df = self.get_city_by_coordinates(latitude,longitude,offset)
 				if len(temp_df)>k:
 					break
-			print(len(temp_df))	
+				
 			for index,row in temp_df.iterrows():
 				closest_cities.append((row[['geonameid','name','country_code','latitude','longitude']],haversine((latitude,longitude),(row['latitude'],row['longitude']),miles=True)))
 
