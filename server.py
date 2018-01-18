@@ -11,6 +11,8 @@ def home():
 def closestcities():
 	geonameid  = int(request.args.get('geonameid'))
 	k = int(request.args.get('k'))
+	same_country = True if request.args.get('country')=='yes' else False
+	print(same_country)
 	gd = GeoData()	
 	return str(gd.get_k_closest_cities(geonameid,k,False))
 
