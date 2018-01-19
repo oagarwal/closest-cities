@@ -1,4 +1,5 @@
 import pandas as pd
+from re import sub
 from haversine import haversine
 
 class GeoData:
@@ -19,7 +20,7 @@ class GeoData:
 		return self.df.loc[(self.df['latitude'] < latitude+offset) & (self.df['latitude'] > latitude-offset) & (self.df['longitude'] < longitude+offset) & (self.df['longitude'] > longitude-offset) & (self.df['country_code'] == country_code)]
 	
 	def get_city_by_name(self,name):
-		name=name.lower().replace(' ','|')
+		name = sub(r"\s+", '|', name.lower())
 		return self.df.loc[self.df['name_lower'].str.contains(name)]#[['geonameid','name','country_code','latitude','longitude']]
 
 	def get_k_closest_cities(self,geonameid,k,same_country):
